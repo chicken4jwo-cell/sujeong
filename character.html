@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>캐릭터 사이트 제작하기 - 짱구 소개 페이지</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+      background: linear-gradient(180deg, #fffaf0, #ffe4e6);
+      color: #222;
+      line-height: 1.7;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    header {
+      background: linear-gradient(135deg, #ff7b7b, #ffb347);
+      color: white;
+      text-align: center;
+      padding: 70px 20px 60px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    }
+
+    header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 12px;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.95;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      z-index: 999;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
+      padding: 16px;
+    }
+
+    nav a:hover {
+      color: #e11d48;
+      font-weight: bold;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 0;
+    }
+
+    section {
+      background: white;
+      border-radius: 22px;
+      padding: 35px;
+      margin-bottom: 28px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+    }
+
+    section h2 {
+      color: #e11d48;
+      font-size: 1.9rem;
+      margin-bottom: 18px;
+      border-left: 8px solid #fb7185;
+      padding-left: 12px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .character-box {
+      height: 400px;
+      border-radius: 24px;
+      background: linear-gradient(160deg, #fef08a, #fdba74);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: inset 0 0 0 6px rgba(255,255,255,0.5),
+                  0 12px 24px rgba(0,0,0,0.12);
+      text-align: center;
+      padding: 20px;
+    }
+
+    .emoji {
+      font-size: 6rem;
+      margin-bottom: 15px;
+    }
+
+    .character-box h3 {
+      font-size: 2rem;
+      margin-bottom: 8px;
+      color: #7c2d12;
+    }
+
+    .character-box p {
+      font-size: 1rem;
+      color: #7c2d12;
+      font-weight: bold;
+    }
+
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 18px;
+    }
+
+    .info-table th,
+    .info-table td {
+      border: 1px solid #fecdd3;
+      padding: 14px;
+      text-align: left;
+    }
+
+    .info-table th {
+      width: 28%;
+      background: #fff1f2;
+      color: #be123c;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .card {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 18px;
+      padding: 22px;
+      transition: 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      color: #c2410c;
+    }
+
+    .quote {
+      background: linear-gradient(135deg, #ffe4e6, #fef3c7);
+      border-left: 8px solid #f43f5e;
+      border-radius: 18px;
+      padding: 24px;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: #444;
+    }
+
+    .tag-wrap {
+      margin-top: 15px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #ffe4e6;
+      color: #be123c;
+      border-radius: 999px;
+      padding: 8px 14px;
+      margin: 6px 8px 0 0;
+      font-size: 0.95rem;
+      font-weight: bold;
+    }
+
+    .list {
+      padding-left: 20px;
+      margin-top: 10px;
+    }
+
+    .list li {
+      margin-bottom: 10px;
+    }
+
+    footer {
+      text-align: center;
+      background: #881337;
+      color: white;
+      padding: 28px 20px;
+      margin-top: 30px;
+    }
+
+    .highlight {
+      color: #e11d48;
+      font-weight: bold;
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      header h1 {
+        font-size: 2.1rem;
+      }
+
+      .character-box {
+        height: 320px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>캐릭터 사이트 제작하기</h1>
+    <p>내가 좋아하는 캐릭터 <strong>짱구</strong>를 소개하는 원페이지 웹사이트</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#intro">캐릭터 소개</a></li>
+      <li><a href="#profile">기본 정보</a></li>
+      <li><a href="#charm">매력 포인트</a></li>
+      <li><a href="#quote">인상 깊은 점</a></li>
+      <li><a href="#reason">좋아하는 이유</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+
+    <section id="intro">
+      <div class="hero">
+        <div class="character-box">
+          <div class="emoji">👦🏻</div>
+          <h3>짱구</h3>
+          <p>밝고 장난꾸러기인 매력적인 캐릭터</p>
+        </div>
+
+        <div>
+          <h2>캐릭터 소개</h2>
+          <p>
+            내가 소개할 캐릭터는 <span class="highlight">짱구는 못말려의 주인공 짱구</span>이다.
+            짱구는 장난이 많고 엉뚱한 성격을 가지고 있지만,
+            가족과 친구들을 소중하게 생각하는 따뜻한 면도 가진 캐릭터이다.
+          </p>
+          <p style="margin-top: 14px;">
+            처음에는 단순히 웃긴 캐릭터라고 생각했지만,
+            여러 에피소드를 보다 보면 짱구만의 솔직함과 순수함,
+            그리고 예상하지 못한 감동적인 모습이 인상적으로 다가온다.
+          </p>
+          <div class="tag-wrap">
+            <span class="tag">장난꾸러기</span>
+            <span class="tag">밝음</span>
+            <span class="tag">순수함</span>
+            <span class="tag">가족애</span>
+            <span class="tag">유쾌함</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="profile">
+      <h2>기본 정보</h2>
+      <table class="info-table">
+        <tr>
+          <th>캐릭터 이름</th>
+          <td>짱구</td>
+        </tr>
+        <tr>
+          <th>등장 작품</th>
+          <td>짱구는 못말려</td>
+        </tr>
+        <tr>
+          <th>특징</th>
+          <td>엉뚱한 행동, 솔직한 말투, 유머감각</td>
+        </tr>
+        <tr>
+          <th>성격</th>
+          <td>활발하고 장난기 많지만 정이 많음</td>
+        </tr>
+        <tr>
+          <th>내가 선택한 이유</th>
+          <td>웃음을 주면서도 따뜻한 감동을 전하는 캐릭터이기 때문</td>
+        </tr>
+      </table>
+    </section>
+
+    <section id="charm">
+      <h2>짱구의 매력 포인트</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>1. 유쾌한 성격</h3>
+          <p>
+            짱구는 항상 밝고 자유로운 성격으로 주변 사람들을 웃게 만든다.
+            평범한 상황도 재미있게 바꾸는 능력이 있다.
+          </p>
+        </div>
+        <div class="card">
+          <h3>2. 솔직한 표현</h3>
+          <p>
+            꾸밈없이 자신의 생각을 표현하는 모습이 인상적이다.
+            때로는 엉뚱하지만 그 솔직함이 매력으로 느껴진다.
+          </p>
+        </div>
+        <div class="card">
+          <h3>3. 따뜻한 마음</h3>
+          <p>
+            장난만 치는 것 같아 보여도 가족과 친구를 위하는 마음이 크다.
+            그래서 웃음과 감동을 함께 주는 캐릭터이다.
+          </p>
+        </div>
+        <div class="card">
+          <h3>4. 오랫동안 사랑받는 캐릭터</h3>
+          <p>
+            어린이뿐 아니라 어른에게도 친숙한 캐릭터이며,
+            세대를 넘어 꾸준히 사랑받는 점이 특별하다고 생각한다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="quote">
+      <h2>인상 깊은 점</h2>
+      <div class="quote">
+        짱구는 단순히 웃긴 캐릭터가 아니라,
+        평범한 일상 속에서도 즐거움을 찾고 주변 사람들에게 웃음을 전하는 존재라고 생각한다.
+        그래서 볼 때마다 기분이 좋아지고, 스트레스를 잠시 잊게 해 준다.
+      </div>
+    </section>
+
+    <section>
+      <h2>짱구를 보면 떠오르는 이미지</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>가족</h3>
+          <p>짱구 가족의 일상을 통해 따뜻함과 웃음을 함께 느낄 수 있다.</p>
+        </div>
+        <div class="card">
+          <h3>친구</h3>
+          <p>친구들과 어울리는 모습이 자연스럽고 재미있어서 보는 재미가 크다.</p>
+        </div>
+        <div class="card">
+          <h3>일상 코미디</h3>
+          <p>특별한 사건이 없어도 일상을 유쾌하게 만드는 점이 큰 매력이다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="reason">
+      <h2>내가 이 캐릭터를 좋아하는 이유</h2>
+      <ul class="list">
+        <li>볼 때마다 기분이 좋아질 만큼 밝고 재미있는 캐릭터이기 때문이다.</li>
+        <li>유머러스한 모습뿐 아니라 따뜻한 감동도 함께 느낄 수 있기 때문이다.</li>
+        <li>어린 시절부터 익숙하게 봐 온 캐릭터라 친근감이 크기 때문이다.</li>
+        <li>엉뚱하지만 미워할 수 없는 성격이 짱구만의 매력이라고 생각하기 때문이다.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>마무리</h2>
+      <p>
+        짱구는 단순한 만화 캐릭터를 넘어,
+        많은 사람들에게 웃음과 추억을 주는 특별한 캐릭터라고 생각한다.
+        그래서 이번 과제를 통해 내가 좋아하는 캐릭터를 소개할 수 있어 즐거웠다.
+      </p>
+      <p style="margin-top: 14px;">
+        앞으로도 짱구처럼 긍정적이고 밝은 에너지를 가진 캐릭터는
+        오랫동안 많은 사람들에게 사랑받을 것이라고 생각한다.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>캐릭터 소개 웹사이트 | 제작자: 이수정</p>
+    <p style="margin-top: 8px;">주제: 짱구 캐릭터 소개 페이지</p>
+  </footer>
+
+</body>
+</html>
