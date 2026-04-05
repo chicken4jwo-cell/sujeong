@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTML 활용하여 책 소개하기 - 아몬드</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      line-height: 1.7;
+      background: linear-gradient(135deg, #f8fafc, #e0f2fe);
+      color: #1f2937;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f172a, #1e3a8a);
+      color: white;
+      padding: 70px 20px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    header h1 {
+      font-size: 2.6rem;
+      margin-bottom: 15px;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.95;
+    }
+
+    nav {
+      background: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
+      padding: 15px;
+    }
+
+    nav a:hover {
+      color: #2563eb;
+      font-weight: 600;
+    }
+
+    main {
+      padding: 40px 0 60px;
+    }
+
+    section {
+      background: white;
+      border-radius: 20px;
+      padding: 35px;
+      margin-bottom: 28px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    }
+
+    section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 18px;
+      color: #1d4ed8;
+      border-left: 6px solid #60a5fa;
+      padding-left: 12px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .book-cover {
+      width: 100%;
+      height: 420px;
+      border-radius: 18px;
+      background: linear-gradient(160deg, #2563eb, #7c3aed);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 15px 30px rgba(37, 99, 235, 0.25);
+      text-align: center;
+      padding: 20px;
+    }
+
+    .book-cover .small {
+      font-size: 1rem;
+      opacity: 0.85;
+      margin-bottom: 8px;
+      letter-spacing: 2px;
+    }
+
+    .book-cover .title {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .book-cover .author {
+      font-size: 1.2rem;
+      opacity: 0.95;
+    }
+
+    .book-intro h2 {
+      border: none;
+      padding-left: 0;
+      margin-bottom: 15px;
+      font-size: 2rem;
+      color: #0f172a;
+    }
+
+    .highlight {
+      color: #2563eb;
+      font-weight: 700;
+    }
+
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 18px;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    .info-table th,
+    .info-table td {
+      border: 1px solid #dbeafe;
+      padding: 14px;
+      text-align: left;
+    }
+
+    .info-table th {
+      background: #eff6ff;
+      width: 25%;
+      color: #1e3a8a;
+    }
+
+    .card-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 20px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      color: #1e40af;
+    }
+
+    .quote-box {
+      background: linear-gradient(135deg, #eff6ff, #ede9fe);
+      border-left: 8px solid #4f46e5;
+      padding: 25px;
+      border-radius: 14px;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: #334155;
+    }
+
+    .review-list {
+      padding-left: 20px;
+      margin-top: 15px;
+    }
+
+    .review-list li {
+      margin-bottom: 10px;
+    }
+
+    footer {
+      background: #0f172a;
+      color: white;
+      text-align: center;
+      padding: 28px 20px;
+      margin-top: 20px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1d4ed8;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin: 5px 8px 5px 0;
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      header h1 {
+        font-size: 2rem;
+      }
+
+      .book-cover {
+        height: 360px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <h1>HTML 활용하여 책 소개하기</h1>
+      <p>내가 추천하는 책 <strong>『아몬드』</strong>를 소개합니다.</p>
+    </div>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#intro">책 소개</a></li>
+      <li><a href="#story">줄거리</a></li>
+      <li><a href="#reason">추천 이유</a></li>
+      <li><a href="#target">추천 대상</a></li>
+      <li><a href="#review">감상평</a></li>
+    </ul>
+  </nav>
+
+  <main class="container">
+
+    <section id="intro">
+      <div class="hero">
+        <div class="book-cover">
+          <div class="small">BOOK REVIEW</div>
+          <div class="title">아몬드</div>
+          <div class="author">손원평</div>
+        </div>
+
+        <div class="book-intro">
+          <h2>책 소개</h2>
+          <p>
+            내가 소개할 책은 <span class="highlight">손원평 작가의 『아몬드』</span>이다.
+            이 책은 감정을 잘 느끼지 못하는 한 소년이 세상을 살아가며 타인과 관계를 맺고,
+            점차 자신의 삶을 이해해 가는 과정을 담고 있는 소설이다.
+          </p>
+          <p style="margin-top: 14px;">
+            처음에는 차분하고 조용한 이야기처럼 느껴지지만,
+            읽다 보면 인간의 감정, 상처, 성장에 대해 깊이 생각하게 만드는 작품이다.
+            문장이 어렵지 않아 읽기 편하면서도, 독자에게 큰 여운을 남긴다는 점이 인상적이다.
+          </p>
+
+          <table class="info-table">
+            <tr>
+              <th>책 제목</th>
+              <td>아몬드</td>
+            </tr>
+            <tr>
+              <th>저자</th>
+              <td>손원평</td>
+            </tr>
+            <tr>
+              <th>장르</th>
+              <td>장편소설 / 성장소설</td>
+            </tr>
+            <tr>
+              <th>출판사</th>
+              <td>창비</td>
+            </tr>
+            <tr>
+              <th>추천 키워드</th>
+              <td>
+                <span class="badge">성장</span>
+                <span class="badge">감정</span>
+                <span class="badge">우정</span>
+                <span class="badge">공감</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="story">
+      <h2>줄거리</h2>
+      <p>
+        주인공 윤재는 태어날 때부터 편도체에 문제가 있어 공포나 분노 같은 감정을 잘 느끼지 못한다.
+        그래서 다른 사람들과 다르게 반응하고, 주변 사람들에게 쉽게 이해받지 못한다.
+      </p>
+      <p style="margin-top: 14px;">
+        하지만 윤재는 할머니와 어머니의 사랑 속에서 자신만의 방식으로 세상을 배워 나간다.
+        이후 여러 사건을 겪고, 개성 강한 친구 곤이를 만나면서 조금씩 관계와 감정의 의미를 알아 가게 된다.
+      </p>
+      <p style="margin-top: 14px;">
+        이 책은 단순한 이야기 전개를 넘어,
+        ‘감정이란 무엇인가’, ‘사람과 사람 사이의 이해는 어떻게 가능해지는가’를 생각하게 만든다.
+      </p>
+    </section>
+
+    <section id="reason">
+      <h2>이 책을 추천하는 이유</h2>
+      <div class="card-list">
+        <div class="card">
+          <h3>1. 읽기 쉬운 문체</h3>
+          <p>
+            문장이 어렵지 않고 전개가 자연스러워서
+            평소 독서를 많이 하지 않는 사람도 부담 없이 읽을 수 있다.
+          </p>
+        </div>
+        <div class="card">
+          <h3>2. 깊은 메시지</h3>
+          <p>
+            감정과 공감, 관계의 의미를 생각하게 해 주어
+            단순한 소설 이상의 감동을 준다.
+          </p>
+        </div>
+        <div class="card">
+          <h3>3. 인물의 성장</h3>
+          <p>
+            주인공이 세상을 이해하고 변화하는 모습을 보며
+            독자도 함께 성장하는 느낌을 받을 수 있다.
+          </p>
+        </div>
+        <div class="card">
+          <h3>4. 여운이 남는 작품</h3>
+          <p>
+            책을 덮은 뒤에도 오랫동안 인물과 장면이 기억에 남아
+            다시 한 번 생각하게 만든다.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>인상 깊었던 부분</h2>
+      <div class="quote-box">
+        이 책에서 가장 인상 깊었던 점은
+        감정을 잘 느끼지 못하는 주인공도 누군가와의 관계 속에서 조금씩 변화할 수 있다는 점이었다.
+        사람은 완벽해서가 아니라 서로를 이해하려고 노력할 때 성장할 수 있다는 메시지가 크게 다가왔다.
+      </div>
+    </section>
+
+    <section id="target">
+      <h2>이런 사람에게 추천합니다</h2>
+      <ul class="review-list">
+        <li>감동 있는 성장소설을 좋아하는 사람</li>
+        <li>가볍게 읽을 수 있지만 의미 있는 책을 찾는 사람</li>
+        <li>인간관계와 공감에 대해 생각해 보고 싶은 사람</li>
+        <li>청소년부터 성인까지 모두 읽을 수 있는 책을 찾는 사람</li>
+      </ul>
+    </section>
+
+    <section id="review">
+      <h2>나의 감상평</h2>
+      <p>
+        『아몬드』는 처음에는 조용한 분위기의 소설처럼 보였지만,
+        읽을수록 마음속에 큰 울림을 주는 작품이었다.
+        특히 주인공이 타인과 관계를 맺으며 조금씩 변해 가는 과정이 매우 인상 깊었다.
+      </p>
+      <p style="margin-top: 14px;">
+        이 책을 통해 나는 감정을 표현하는 능력만큼이나
+        다른 사람을 이해하려는 태도도 중요하다는 것을 느꼈다.
+        그래서 이 책을 많은 사람들에게 추천하고 싶다.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>2026 HTML 과제 | 책 소개 페이지</p>
+    <p style="margin-top: 8px;">소개 도서: 『아몬드』 / 제작자: 이수정</p>
+  </footer>
+
+</body>
+</html>
